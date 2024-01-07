@@ -15,11 +15,11 @@ CREATE TABLE `items_orders` (
 --> statement-breakpoint
 CREATE TABLE `orders` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`data` integer
+	`date` integer
 );
 --> statement-breakpoint
 CREATE TABLE `users` (
-	`id` text PRIMARY KEY DEFAULT uuid() NOT NULL,
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`username` text,
 	`password` text,
 	`roles` text

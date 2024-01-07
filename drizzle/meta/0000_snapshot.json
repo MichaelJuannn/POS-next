@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "14d63400-2b2f-457e-83bb-eebbc77fb2e2",
+  "id": "50714e0f-1804-4146-9327-470709af17a7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "items": {
@@ -109,8 +109,8 @@
           "notNull": true,
           "autoincrement": true
         },
-        "data": {
-          "name": "data",
+        "date": {
+          "name": "date",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -127,11 +127,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
+          "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false,
-          "default": "uuid()"
+          "autoincrement": true
         },
         "username": {
           "name": "username",

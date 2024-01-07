@@ -2,7 +2,7 @@ import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
 import { relations, sql } from 'drizzle-orm'
 import { primaryKey } from 'drizzle-orm/sqlite-core'
 export const users = sqliteTable("users", {
-    id: text("id").primaryKey().default(sql`uuid()`),
+    id: integer("id").primaryKey({ autoIncrement: true }),
     username: text("username").unique(),
     password: text("password"),
     roles: text("roles", { enum: ["admin", "user"] }),
@@ -21,7 +21,7 @@ export const itemsRealtions = relations(items, ({ many }) => ({
 
 export const orders = sqliteTable("orders", {
     id: integer("id").primaryKey({ autoIncrement: true }),
-    date: integer("data", { mode: "timestamp" })
+    date: integer("date", { mode: "timestamp" })
 })
 
 export const ordersRelations = relations(orders, ({ many }) => ({
