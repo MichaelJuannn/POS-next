@@ -6,7 +6,7 @@ export default {
     driver: 'better-sqlite',
     breakpoints: true,
     dbCredentials: {
-        url: 'sqlite.db'
+        url: 'db.sqlite'
     }
     , verbose: true
 } satisfies Config

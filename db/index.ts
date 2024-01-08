@@ -3,7 +3,7 @@ import Database from 'better-sqlite3';
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
 import * as schema from './schema';
 
-const sqlite = new Database(process.env.DB_URL!);
+const sqlite = new Database('db.sqlite');
 export const db: BetterSQLite3Database<typeof schema> = drizzle(sqlite, {
     schema,
 });
@@ -11,4 +11,4 @@ export const db: BetterSQLite3Database<typeof schema> = drizzle(sqlite, {
 // this is important to bring the schema into the database, otherwise the tables won't be created
 migrate(db, { migrationsFolder: 'drizzle' });
 
-sqlite.close()
+// sqlite.close()
