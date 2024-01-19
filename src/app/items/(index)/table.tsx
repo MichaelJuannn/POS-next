@@ -26,6 +26,13 @@ export default function Table({ data }: { data: Item[] }) {
             </th>
         </tr>
     ))
+    const NoResult = () => {
+        return (
+            <tr>
+                <td colSpan={3} className="text-center">No Result</td>
+            </tr>
+        )
+    }
     return (
         <div className="overflow-x-auto">
             <table className="table">
@@ -38,6 +45,7 @@ export default function Table({ data }: { data: Item[] }) {
                     </tr>
                 </thead>
                 <tbody>
+                    {itemsList.length === 0 && <NoResult />}
                     {itemsList}
                 </tbody>
             </table>
