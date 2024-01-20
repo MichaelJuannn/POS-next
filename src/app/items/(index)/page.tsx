@@ -4,16 +4,10 @@ import { items } from "../../../../db/schema"
 import Table from "./table"
 import { like } from "drizzle-orm"
 import Search from "./search"
+import { getItem } from "./actions"
 
 
-async function getItem(query: string) {
-    const itemsData = await db.select({
-        id: items.id,
-        name: items.name,
-        price: items.price
-    }).from(items).where(like(items.name, `%${query}%`))
-    return itemsData
-}
+
 
 export default async function Items({ searchParams }: {
     searchParams: { q: string }

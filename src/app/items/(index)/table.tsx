@@ -1,5 +1,6 @@
 'use client'
-import Link from 'next/dist/client/link'
+import { useRouter } from 'next/navigation'
+import { deleteItem } from './actions'
 type Item = {
     id: string
     name: string | null,
@@ -8,24 +9,25 @@ type Item = {
 }
 
 export default function Table({ data }: { data: Item[] }) {
+    const router = useRouter()
 
     const itemsList = data.map((item: Item) => (
-        <tr key={item.id}>
+        <tr key={item.id} className='hover cursor-pointer' onClick={() => router.push(`/items/${item.id}`)}>
             <td>
-                <div className="flex items-center gap-3">
-                    <div>
-                        <div className="font-bold">{item.name}</div>
-                    </div>
-                </div>
+                <div className="font-bold">{item.name}</div>
             </td>
             <td>
                 {item.price}
             </td>
-            <th>
-                <Link href={`/items/${item.id}`}><button className="btn btn-ghost ">Details</button></Link>
-            </th>
+            <td>
+                <button className="btn btn-ghost " onClick={async (e) => {
+                    e.stopPropagation()
+                    await deleteItem(item.id)
+                }}>Delete</button>
+            </td>
         </tr>
     ))
+    console.log(itemsList)
     const NoResult = () => {
         return (
             <tr>
