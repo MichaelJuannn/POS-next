@@ -8,7 +8,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     const itemData = await db.select().from(items).where(eq(items.id, params.id)).execute()
     if (itemData.length === 0 || !itemData[0].name || !itemData[0].price || !itemData[0].description) { return <div>404</div> }
     return (
-        <div className="space-y-10 capitalize bg-slate-200 rounded p-8">
+        <div className="capitalize bg-white rounded p-8">
             <h1 className="text-xl">{itemData[0].id}</h1>
             <hr />
             <div>
