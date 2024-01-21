@@ -1,0 +1,1 @@
+ALTER TABLE items ADD `stock` integer DEFAULT 0;

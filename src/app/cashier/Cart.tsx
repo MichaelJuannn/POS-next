@@ -5,12 +5,14 @@ import { useFormState } from "react-dom"
 import { getItemById } from "../items/(index)/actions"
 import { SubmitButton } from "../items/add/buttons"
 import { Trash } from "lucide-react"
+import { writeRecord } from "./actions"
+import { CartItems } from "@/types/types"
 
 export default function Cart() {
 
     let initialStates: { id?: string } = {} // Add type annotation for 'id'
     const inputRef = useRef<HTMLInputElement>(null)
-    const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext<any>(CartContext)
+    const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext<any>(CartContext);
     // @ts-expect-error
     const [state, formAction] = useFormState(getItemById, {})
     useEffect(() => {
@@ -22,7 +24,7 @@ export default function Cart() {
         }
     }, [state])
 
-    const itemList = cartItems.map((item: any) => (
+    const itemList = cartItems.map((item: CartItems) => (
         <tr key={item.id}>
             <td>
                 <div className="font-bold">{item.name}</div>
@@ -50,6 +52,7 @@ export default function Cart() {
                     </Table>
                     <div className="flex justify-end items-center gap-4 mt-4">
                         <button className="btn btn-warning" onClick={clearCart}>Clear Cart</button>
+                        <button className="btn btn-success" onClick={async () => await writeRecord(cartItems)}>Audit Transaction</button>
                         <div className="">Total: {getCartTotal()}</div>
                     </div>
                 </div>

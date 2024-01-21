@@ -2,6 +2,7 @@
 import { Pencil } from "lucide-react"
 import { useState } from "react"
 
+//@ts-ignore
 export default function Dialog({ currentValue, id, updateItem }: { currentValue: string, id: string, updateItem: any }) {
 
     const [value, setValue] = useState(currentValue)
@@ -17,7 +18,7 @@ export default function Dialog({ currentValue, id, updateItem }: { currentValue:
                         {/* if there is a button in form, it will close the modal */}
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <h3 className="font-bold text-lg">Update {currentValue}</h3>
+                    <h3 className="font-bold text-lg">Update Barang</h3>
                     <p className="py-4">Masukkan Data Terbaru Untuk Update</p>
                     <div className="modal-action">
                         <input className="input mx-2" type="text" value={value?.toString()} onChange={(e) => setValue(e.currentTarget.value)} />

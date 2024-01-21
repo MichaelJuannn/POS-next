@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "cbaecc78-ec0c-4bea-8976-74a7afc1fa41",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "ef3301d3-33a2-4750-8573-ffed0afe0245",
+  "prevId": "cbaecc78-ec0c-4bea-8976-74a7afc1fa41",
   "tables": {
     "items": {
       "name": "items",
@@ -27,6 +27,14 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "stock": {
+          "name": "stock",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
         },
         "description": {
           "name": "description",

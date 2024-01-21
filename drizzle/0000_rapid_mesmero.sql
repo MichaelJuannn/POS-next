@@ -8,9 +8,10 @@ CREATE TABLE `items` (
 CREATE TABLE `items_orders` (
 	`items_id` text NOT NULL,
 	`orders_id` integer NOT NULL,
+	`quantity` integer,
 	PRIMARY KEY(`items_id`, `orders_id`),
 	FOREIGN KEY (`items_id`) REFERENCES `items`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`orders_id`) REFERENCES `orders`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`orders_id`) REFERENCES `orders`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `orders` (

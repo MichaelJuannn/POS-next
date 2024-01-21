@@ -12,6 +12,7 @@ export const items = sqliteTable("items", {
     id: text("id").primaryKey(),
     name: text("name"),
     price: integer("price"),
+    stock: integer("stock").default(0),
     description: text("description"),
 })
 
@@ -30,7 +31,8 @@ export const ordersRelations = relations(orders, ({ many }) => ({
 
 export const items_orders = sqliteTable("items_orders", {
     items_id: text("items_id").notNull().references(() => items.id),
-    orders_id: integer("orders_id").notNull().references(() => orders.id),
+    orders_id: integer("orders_id").notNull().references(() => orders.id, { onDelete: "cascade" }),
+    quantity: integer("quantity")
 }, (t) => ({
     pk: primaryKey({ columns: [t.items_id, t.orders_id] })
 }))

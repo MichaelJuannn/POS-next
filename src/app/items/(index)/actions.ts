@@ -11,7 +11,8 @@ export async function getItemByName(query: string) {
     const itemsData = await db.select({
         id: items.id,
         name: items.name,
-        price: items.price
+        price: items.price,
+        stock: items.stock
     }).from(items).where(or(
         like(items.name, `%${query}%`),
         like(items.id, `${query}%`)

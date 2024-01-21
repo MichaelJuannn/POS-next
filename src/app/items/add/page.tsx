@@ -22,6 +22,10 @@ export default function AddItemPage() {
                         <input type="number" name="price" id="price" className="input input-bordered" />
                     </div>
                     <div>
+                        <label htmlFor="stock" className="label-text block my-2">Stock</label>
+                        <input type="number" name="stock" id="stock" className="input input-bordered" />
+                    </div>
+                    <div>
                         <label htmlFor="description" className="label-text block my-2">Deskripsi</label>
                         <textarea name="description" id="description" cols={30} rows={5} className="textarea textarea-bordered"></textarea>
                     </div>

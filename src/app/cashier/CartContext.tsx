@@ -1,15 +1,24 @@
 'use client'
+import { CartItems } from "@/types/types";
 import { is } from "drizzle-orm";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, ReactNode } from "react";
 
 //@ts-expect-error
 export const CartContext = createContext()
 
-export const CartProvider = ({ children }: any) => {
-    const [cartItems, setCartItems] = useState<any[]>([]) // Add type annotation for cartItems
+export type CartContextType = {
+    cartItems: CartItems[];
+    addToCart: (item: CartItems) => void;
+    removeFromCart: (item: CartItems) => void;
+    clearCart: () => void;
+    getCartTotal: () => number;
+};
 
-    function addToCart(item: any) {
-        const isItemExist = cartItems.find((cartItem: any) => cartItem.id === item.id)
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+    const [cartItems, setCartItems] = useState<CartItems[]>([]) // Add type annotation for cartItems
+
+    function addToCart(item: CartItems) {
+        const isItemExist = cartItems.find((cartItem: CartItems) => cartItem.id === item.id)
 
         if (isItemExist) {
             setCartItems(
@@ -24,10 +33,9 @@ export const CartProvider = ({ children }: any) => {
         }
     }
 
-    const removeFromCart = (item: any) => {
+    const removeFromCart = (item: CartItems) => {
         const isItemExist = cartItems.find((cartItem) => cartItem.id === item.id);
-
-        if (isItemExist.quantity === 1) {
+        if (isItemExist && isItemExist.quantity === 1) {
             setCartItems(cartItems.filter((cartItem) => cartItem.id !== item.id));
         } else {
             setCartItems(

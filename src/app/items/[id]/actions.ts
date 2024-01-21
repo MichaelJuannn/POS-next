@@ -15,7 +15,13 @@ export async function updatePrice(price: number, id: string) {
     return revalidatePath(`/items/${id}`)
 }
 
+export async function updateStock(stock: number, id: string) {
+    const updated = await db.update(items).set({ stock: stock }).where(eq(items.id, id)).execute()
+    return revalidatePath(`/items/${id}`)
+}
+
 export async function updateDescription(description: string, id: string) {
     const updated = await db.update(items).set({ description: description }).where(eq(items.id, id)).execute()
     return revalidatePath(`/items/${id}`)
 }
+
