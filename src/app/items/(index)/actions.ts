@@ -1,6 +1,6 @@
 'use server'
 
-import { like } from "drizzle-orm"
+import { like, or } from "drizzle-orm"
 import { db } from "../../../../db"
 import { items } from "../../../../db/schema"
 import { eq } from "drizzle-orm"
@@ -12,7 +12,10 @@ export async function getItemByName(query: string) {
         id: items.id,
         name: items.name,
         price: items.price
-    }).from(items).where(like(items.name, `%${query}%`))
+    }).from(items).where(or(
+        like(items.name, `%${query}%`),
+        like(items.id, `${query}%`)
+    ))
     return itemsData
 }
 

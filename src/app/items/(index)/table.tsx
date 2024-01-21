@@ -27,7 +27,6 @@ export default function Table({ data }: { data: Item[] }) {
             </td>
         </tr>
     ))
-    console.log(itemsList)
     const NoResult = () => {
         return (
             <tr>

@@ -25,9 +25,9 @@ export const CartProvider = ({ children }: any) => {
     }
 
     const removeFromCart = (item: any) => {
-        const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
+        const isItemExist = cartItems.find((cartItem) => cartItem.id === item.id);
 
-        if (isItemInCart.quantity === 1) {
+        if (isItemExist.quantity === 1) {
             setCartItems(cartItems.filter((cartItem) => cartItem.id !== item.id));
         } else {
             setCartItems(
