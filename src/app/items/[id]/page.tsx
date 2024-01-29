@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm"
 import { db } from "../../../../db"
 import { items } from "../../../../db/schema"
-import Dialog from "./dialog"
+import UpdateDialog from "./dialog"
 import { updateDescription, updateName, updatePrice, updateStock } from "./actions"
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -13,19 +13,19 @@ export default async function Page({ params }: { params: { id: string } }) {
             <hr />
             <div>
                 Nama Barang : {itemData[0].name}
-                <Dialog currentValue={itemData[0].name} id={itemData[0].id} updateItem={updateName} />
+                <UpdateDialog currentValue={itemData[0].name} id={itemData[0].id} updateItem={updateName} />
             </div>
             <div>
                 Harga Barang : {itemData[0].price}
-                <Dialog currentValue={itemData[0].price.toString()} id={itemData[0].id} updateItem={updatePrice} />
+                <UpdateDialog currentValue={itemData[0].price.toString()} id={itemData[0].id} updateItem={updatePrice} />
             </div>
             <div>
                 Stock Barang : {itemData[0].stock}
-                <Dialog currentValue={itemData[0].stock.toString()} id={itemData[0].id} updateItem={updateStock} />
+                <UpdateDialog currentValue={itemData[0].stock.toString()} id={itemData[0].id} updateItem={updateStock} />
             </div>
             <div>
                 Deskripsi Barang : {itemData[0].description}
-                <Dialog currentValue={itemData[0].description} id={itemData[0].id} updateItem={updateDescription} />
+                <UpdateDialog currentValue={itemData[0].description} id={itemData[0].id} updateItem={updateDescription} />
             </div>
         </div>
     )

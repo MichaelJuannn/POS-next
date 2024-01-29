@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode, useContext, useEffect, useRef } from "react"
+import { ReactNode, Suspense, useContext, useEffect, useRef, useState } from "react"
 import { CartContext } from "./CartContext"
 import { useFormState } from "react-dom"
 import { getItemById } from "../items/(index)/actions"
@@ -10,6 +10,8 @@ import { CartItems } from "@/types/types"
 
 export default function Cart() {
 
+    const [payAmount, setPayAmount] = useState(0)
+    const [loading, setLoading] = useState(false)
     let initialStates: { id?: string } = {} // Add type annotation for 'id'
     const inputRef = useRef<HTMLInputElement>(null)
     const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext<any>(CartContext);
@@ -42,19 +44,37 @@ export default function Cart() {
         <div>
             <h1 className="text-lg">Cart</h1>
             <div className="container flex ">
-                <form action={formAction} className="basis-1/2">
-                    <input ref={inputRef} type="text" className="input input-bordered" name='id' />
-                    <SubmitButton />
-                </form>
+                <div className="basis-1/2">
+                    <form action={formAction} >
+                        <input ref={inputRef} type="text" className="input input-bordered" name='id' />
+                        <SubmitButton />
+                    </form>
+                    <div className="my-3">
+                        <input type="number" className="input input-bordered" onChange={(e) => setPayAmount(parseInt(e.currentTarget.value))} value={payAmount} />
+                    </div>
+                    <div className="space-x-5">
+                        <button className="btn btn-warning" onClick={clearCart}>Clear Cart</button>
+                        {!loading ? <button className="btn btn-success" onClick={async () => {
+                            setLoading(true)
+                            await writeRecord(cartItems)
+                            clearCart()
+                            setPayAmount(0)
+                            setLoading(false)
+                        }}>Audit Transaction</button> :
+                            <button disabled className="btn btn-success">
+                                <span className="loading loading-spinner loading-xs"></span>
+                                loading
+                            </button>
+                        }
+                    </div>
+                    <div className="m-4 text-xl"> Total : {getCartTotal()}</div>
+                    <div className="m-4 text-xl"> Kembalian : {payAmount - getCartTotal()}</div>
+                </div>
                 <div className="basis-1/2 ">
                     <Table>
                         {itemList}
                     </Table>
-                    <div className="flex justify-end items-center gap-4 mt-4">
-                        <button className="btn btn-warning" onClick={clearCart}>Clear Cart</button>
-                        <button className="btn btn-success" onClick={async () => await writeRecord(cartItems)}>Audit Transaction</button>
-                        <div className="">Total: {getCartTotal()}</div>
-                    </div>
+
                 </div>
             </div>
         </div>

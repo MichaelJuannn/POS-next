@@ -1,5 +1,6 @@
 'use server'
 
+import { sql } from "drizzle-orm"
 import { db } from "../../../../db"
 import { items } from "../../../../db/schema"
 
@@ -16,5 +17,5 @@ export async function createItem(formData: FormData) {
     if (!rawFormData.id || !rawFormData.name || !rawFormData.price || !rawFormData.description || !rawFormData.stock) {
         return 'Missing required fields'
     }
-    const data = await db.insert(items).values(rawFormData)
+    const data = await db.insert(items).values(rawFormData).onConflictDoUpdate({ target: items.id, set: { stock: sql`${items.stock} + ${stockInt}` } })
 }

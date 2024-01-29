@@ -2,8 +2,7 @@
 import { Pencil } from "lucide-react"
 import { useState } from "react"
 
-//@ts-ignore
-export default function Dialog({ currentValue, id, updateItem }: { currentValue: string, id: string, updateItem: any }) {
+export default function UpdateDialog({ currentValue, id, updateItem }: { currentValue: string, id: string, updateItem: ((data: number | string, id: string) => Promise<void>) | undefined }) {
 
     const [value, setValue] = useState(currentValue)
     const [loading, setLoading] = useState(false)
@@ -25,7 +24,9 @@ export default function Dialog({ currentValue, id, updateItem }: { currentValue:
                         {!loading ? <button className="btn"
                             onClick={async () => {
                                 setLoading(true)
-                                await updateItem(value, id)
+                                if (updateItem) {
+                                    await updateItem(value, id)
+                                }
                                 setLoading(false)
                             }}
                         >Update</button> : <button type="submit" className="btn btn-primary m-4">
